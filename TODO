@@ -1,0 +1,11 @@
+Game Engine Updates:
+    ☐ Node movement LERPING
+    ☐ Node Drag and Drop
+        ☐ Z-Indexing
+        ☐ Past parent cleanup
+    Upper and lowercase text rendereing
+        
+
+Project Level Changes:
+    ☐ Re-add butler executable
+    ☐ itch.io butler github action
