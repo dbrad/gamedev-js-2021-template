@@ -3,9 +3,10 @@ Game Engine Updates:
     ☐ Node Drag and Drop
         ☐ Z-Indexing
         ☐ Past parent cleanup
-    Upper and lowercase text rendereing
+    ☐ Upper and lowercase text rendereing
         
 
 Project Level Changes:
-    ☐ Re-add butler executable
-    ☐ itch.io butler github action
+    ✔ Re-add butler executable @done(21-10-01 13:59)
+    ✔ itch.io butler github action @done(21-10-01 13:59)
+    ☐ Add Script to merge from dev to main, tag verison, and push

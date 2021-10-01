@@ -1,1 +1,3 @@
-export let VERSION = "1.0.0-b7";
+import { doc } from "./screen";
+
+export let VERSION = doc.querySelector('meta[name="version"]')?.getAttribute("content") || "0.0.0";

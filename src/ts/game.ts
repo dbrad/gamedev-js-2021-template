@@ -6,7 +6,7 @@ import { gl_clear, gl_flush, gl_getContext, gl_init, gl_setClear } from "./gl";
 import { initStats, tickStats } from "./stats";
 import { initializeInput, inputContext } from "./input";
 import { registerScene, renderScene, updateScene } from "./scene";
-import { setupAudio, startMusic } from "./zzfx";
+import { setupAudio } from "./zzfx";
 
 import { MainMenu } from "./scenes/main-menu";
 import { assert } from "./debug";
@@ -40,8 +40,6 @@ window.addEventListener("load", async () =>
 
       setupAudio();
       registerScene(MainMenu._sceneId, MainMenu._setup, MainMenu._update);
-
-      startMusic();
 
       updateTextNode(preGameMessage, "paused");
       doc.addEventListener("visibilitychange", () => { playing = !doc.hidden; });

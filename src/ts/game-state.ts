@@ -1,23 +1,3 @@
-import { music, startMusic } from "./zzfx";
-
-
-export let musicEnabled: boolean = true;
-
-export let toggleMusic = (): void =>
-{
-  if (musicEnabled)
-  {
-    music.stop();
-    musicEnabled = false;
-  }
-  else
-  {
-    startMusic();
-    musicEnabled = true;
-  }
-};
-
-
 type GameState = {};
 export let gameState: GameState;
 

@@ -1,25 +1,18 @@
-#  Name of workflow
 name: Deploy To Netlify
 
-# When workflow is triggered
 on:
   push:
     branches: [ todo ]
 
-# Jobs to carry out
 jobs:
   deploy:
-    # Operating system to run job on
     runs-on: windows-latest
     env:
       NODE_ENV: production
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-    # Steps in job
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -35,3 +28,6 @@ jobs:
 
       - name: Deploy to netlify
         run: yarn deploy:netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

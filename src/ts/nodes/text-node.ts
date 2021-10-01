@@ -1,11 +1,10 @@
-import { GREY_999, HULL_RED, POWER_GREEN, WHITE } from "../colour";
+import { WHITE } from "../colour";
 import { createNode, moveNode, nodeSize, node_interactive, node_render_function, node_size } from "../scene-node";
 import { gl_pushTextureQuad, gl_restore, gl_save, gl_scale, gl_translate } from "../gl";
 
 import { assert } from "../debug";
 import { getTexture } from "../texture";
 import { math } from "../math";
-import { txt_empty_string } from "../text";
 
 export const Align_Left = 0;
 export const Align_Center = 1;
@@ -83,7 +82,7 @@ export let parseText = (text: string, width: number = 640, scale: number = 1): n
         let lastWord = resultLine.pop();
         assert(lastWord !== undefined, `No last word to pop found.`);
         let line = resultLine.join(" ");
-        let lineLength = line.replace(/[A-Z]/g, txt_empty_string).length;
+        let lineLength = line.replace(/[A-Z]/g, "").length;
         resultLines.push([line, lineLength]);
         resultLine = [lastWord];
       }
@@ -91,7 +90,7 @@ export let parseText = (text: string, width: number = 640, scale: number = 1): n
     if (resultLine.length > 0)
     {
       let line = resultLine.join(" ");
-      let lineLength = line.replace(/[A-Z]/g, txt_empty_string).length;
+      let lineLength = line.replace(/[A-Z]/g, "").length;
       resultLines.push([line, lineLength]);
     }
     resultLine = [];
@@ -138,18 +137,8 @@ let renderTextNode = (nodeId: number, now: number, delta: number): void =>
 
     for (let word of words)
     {
-      for (let letter of word.split(txt_empty_string))
+      for (let letter of word.split(""))
       {
-        if (letter === letter.toUpperCase() && /[a-z]+/i.test(letter))
-        {
-          if (letter === "R") colour = HULL_RED;
-          else if (letter === "G") colour = POWER_GREEN;
-          else if (letter === "F") colour = GREY_999;
-          // @ifdef DEBUG
-          else assert(false, `Non-control capital letter used ${ letter }`);
-          // @endif
-          continue;
-        }
         let t = getTexture(letter);
         x = xOffset + alignmentOffset;
         gl_save();
