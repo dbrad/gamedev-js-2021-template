@@ -1,7 +1,7 @@
-import { WHITE } from "../colour";
 import { createNode, moveNode, nodeSize, node_interactive, node_render_function, node_size } from "../scene-node";
 import { gl_pushTextureQuad, gl_restore, gl_save, gl_scale, gl_translate } from "../gl";
 
+import { WHITE } from "../colour";
 import { assert } from "../debug";
 import { getTexture } from "../texture";
 import { math } from "../math";

@@ -1,17 +1,17 @@
 import { Align_Center, createTextNode, updateTextNode } from "./nodes/text-node";
-import { initGameState } from "./game-state";
 import { Interpolators, interpolate } from "./interpolate";
 import { SCREEN_CENTER_X, SCREEN_CENTER_Y, doc, setupScreen } from "./screen";
+import { cursorNode, moveNode, renderNode, setupCursorNode } from "./scene-node";
 import { gl_clear, gl_flush, gl_getContext, gl_init, gl_setClear } from "./gl";
 import { initStats, tickStats } from "./stats";
-import { initializeInput, inputContext } from "./input";
+import { initializeInput, inputContext, moveCursor } from "./input";
 import { registerScene, renderScene, updateScene } from "./scene";
-import { setupAudio } from "./zzfx";
 
 import { MainMenu } from "./scenes/main-menu";
 import { assert } from "./debug";
+import { initGameState } from "./game-state";
 import { loadSpriteSheet } from "./texture";
-import { renderNode } from "./scene-node";
+import { setupAudio } from "./zzfx";
 
 window.addEventListener("load", async () =>
 {
@@ -36,6 +36,7 @@ window.addEventListener("load", async () =>
     {
       playing = true;
       initializeInput(canvas);
+      setupCursorNode();
       initGameState();
 
       setupAudio();
@@ -62,6 +63,8 @@ window.addEventListener("load", async () =>
 
     if (playing)
     {
+      moveNode(cursorNode, inputContext._cursor[0], inputContext._cursor[1], 75);
+
       // Step all active interpolators forwards
       for (let [_, interpolator] of Interpolators)
       {
@@ -88,12 +91,11 @@ window.addEventListener("load", async () =>
     tickStats(now, delta);
 
     // Prevent the 'cursor' from hovering an element after touching it
-    if (inputContext._fire > -1 && inputContext._isTouch)
+    if (inputContext._fire > 0 && inputContext._isTouch)
     {
-      inputContext._cursor[0] = 0;
-      inputContext._cursor[1] = 0;
+      moveCursor(0, 0);
     }
-    inputContext._fire = -1;
+    inputContext._fire = 0;
 
     requestAnimationFrame(loop);
   };

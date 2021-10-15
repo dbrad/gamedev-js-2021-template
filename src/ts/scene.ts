@@ -1,7 +1,7 @@
 import { Interpolators, createInterpolationData } from "./interpolate";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./screen";
 import { colourToHex, hexToColour } from "./colour";
-import { nodeInput, renderNode } from "./scene-node";
+import { cursorNode, nodeInput, performNodeMovement, renderNode, setParentNode } from "./scene-node";
 
 import { assert } from "./debug";
 import { clearInput } from "./input";
@@ -28,6 +28,7 @@ export let registerScene = (sceneId: number, setupFn: () => number, updateFn: (n
   if (!CurrentScene)
   {
     CurrentScene = scene;
+    setParentNode(cursorNode, scene._rootId);
   }
 };
 
@@ -37,6 +38,7 @@ export let pushScene = (sceneId: number, speed: number = 250, fadeColor: number 
   bgr = [b, g, r];
   let scene = Scenes.get(sceneId);
   assert(scene !== undefined, `Unable to find scene #"${ sceneId }"`);
+  setParentNode(cursorNode, scene._rootId);
   transitionToScene(scene, speed);
 };
 
@@ -76,6 +78,7 @@ export let updateScene = (now: number, delta: number): void =>
   {
     nodeInput(rootId);
   }
+  performNodeMovement(rootId);
   CurrentScene._updateFn(now, delta);
 };
 
